@@ -1,40 +1,35 @@
-# Quasar App (frontend-test)
+### Cara Menjalankan
 
-A Quasar Project
+1.  **Clone Repositori**
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+    ```bash
+    git clone https://github.com/fairuzulum/frontend-test.git
+    cd frontend-test
+    ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+2.  **Install Dependencies**
+    Gunakan `npm` untuk menginstall semua package yang dibutuhkan.
 
+    ```bash
+    npm install
+    ```
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
+3.  **Konfigurasi Environment (.env)**
+    Ini adalah langkah paling penting.
 
+    a. Buka file `.env` yang baru dibuat. Cari variabel `VITE_APP_KEY` dan **samakan nilainya** dengan `APP_KEY` yang ada di file `.env` proyek Laravel (backend) Anda.
 
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
+    Contoh isi file `.env`:
 
+    ```env
+    # NILAI INI HARUS SAMA PERSIS DENGAN APP_KEY DI BACKEND LARAVEL ANDA
+    VITE_APP_KEY=base64:A0uBuw4bIIvzFwcaZ7q7o2d3DPLxIZA1oAYABcgLM0M=
+    ```
 
-### Build the app for production
-```bash
-quasar build
-```
+4.  **Jalankan Development Server**
+    Setelah semua siap, jalankan server pengembangan Quasar.
+    ```bash
+    quasar dev
+    ```
 
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+---
