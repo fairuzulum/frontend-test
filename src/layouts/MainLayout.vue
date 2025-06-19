@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Aplikasi Klinik
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
@@ -28,14 +28,30 @@
         <q-item-label
           header
         >
-          Essential Links
+          Menu Utama
         </q-item-label>
 
         <EssentialLink
-          v-for="link in linksList"
+          v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
+
+        <q-separator class="q-my-md" />
+
+        <q-item clickable v-ripple @click="confirmLogout">
+          <q-item-section avatar>
+            <q-icon name="logout" color="negative" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>Logout</q-item-label>
+            <q-item-label caption>
+              Keluar dari sesi Anda
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
       </q-list>
     </q-drawer>
 
@@ -46,57 +62,51 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useQuasar } from 'quasar'
+import { useAuthStore } from 'stores/auth'
+import { useRouter } from 'vue-router'
 
-const linksList = [
+const $q = useQuasar()
+const authStore = useAuthStore()
+const router = useRouter()
+
+const allLinks = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Home',
+    caption: 'Go to homepage',
+    icon: 'home',
+    link: '/'
   },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ]
+
+const essentialLinks = computed(() => allLinks)
 
 const leftDrawerOpen = ref(false)
 
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+function confirmLogout() {
+  $q.dialog({
+    title: 'Konfirmasi Logout',
+    message: 'Apakah Anda yakin ingin keluar dari aplikasi?',
+    persistent: true,
+    ok: {
+      label: 'Logout',
+      color: 'negative',
+      push: true
+    },
+    cancel: {
+      label: 'Batal',
+      color: 'primary',
+      flat: true 
+    }
+  }).onOk(async () => {
+    await authStore.logout()
+    router.push('/login')
+  })
 }
 </script>

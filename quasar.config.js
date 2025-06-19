@@ -12,6 +12,10 @@ export default defineConfig((/* ctx */) => {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
+      'pinia',
+      'axios',
+      // 'i18n', // Uncomment if you have an i18n boot file
+      // 'my-boot-file' // Example of another boot file
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
@@ -90,7 +94,10 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Notify',
+        'Dialog',  
+      ]
     },
 
     // animations: 'all', // --- includes all animations
