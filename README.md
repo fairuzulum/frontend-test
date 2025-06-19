@@ -28,8 +28,15 @@
 
 4.  **Jalankan Development Server**
     Setelah semua siap, jalankan server pengembangan Quasar.
+
     ```bash
     quasar dev
+    ```
+
+5.  **Install quasar**
+    Jika "quasar dev" tidak bisa dijalankan, install @quasar/cli terlebih dahulu
+    ```bash
+    npm i -g @quasar/cli
     ```
 
 ---
